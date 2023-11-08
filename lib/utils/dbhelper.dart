@@ -15,6 +15,12 @@ class DbHelper{
   //esta clase es de sqflite
   Database? db;
 
+  //codigo para que siempre solo se abra 1 instancia de la BD --> la misma
+  static final DbHelper dbHelper = DbHelper.internal();
+  DbHelper.internal();
+  factory DbHelper() => dbHelper;
+
+
   //Ahora creo la clase "openDb"
   Future<Database> openDb() async{
     //y aqui hacemos una pregunta fundamental
@@ -45,11 +51,11 @@ class DbHelper{
     db = await openDb();
 
     //inserto valores en las tablas
-    //await db!.execute('INSERT INTO lists VALUES(2, "Computadoras", 1)');
-    //await db!.execute('INSERT INTO lists VALUES(1, "Impresoras", 3)');
-    //await db!.execute('INSERT INTO items VALUES(0, 0, "Manzanas", "5 Kgs", "Deben ser verdes")');
+    await db!.execute('INSERT INTO lists VALUES(2, "Computadoras", 1)');
+    await db!.execute('INSERT INTO lists VALUES(1, "Impresoras", 3)');
+    await db!.execute('INSERT INTO items VALUES(0, 0, "Manzanas", "5 Kgs", "Deben ser verdes")');
 
-    //await db!.insert("lists", {'id': 4, 'name': 'carnes', 'priority': 1});
+    await db!.insert("lists", {'id': 4, 'name': 'carnes', 'priority': 1});
 
     //Mostramos los valores (usamos el método rawQuery)
     //Pasamos los valores a una lista
